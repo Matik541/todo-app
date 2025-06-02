@@ -20,6 +20,36 @@
               <p class="mb-4"><strong>due date:</strong> {{ $task->due_date->format('Y-m-d') }}</p>
             </div>
           </div>
+          <div class="mt-8">
+            <h3 class="text-lg font-bold mb-4">Edit History</h3>
+            @if ($task->histories->isEmpty())
+            <div class="bg-yellow-100 border border-yellow-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+              No edit history available for this task.
+            </div>
+
+            @else
+            <div class="space-y-4">
+              @foreach ($task->histories->sortByDesc('created_at') as $history)
+              <div class="border border-gray-200 p-4 rounded-lg bg-gray-50">
+                <p class="text-sm text-gray-600">
+                  Changed at {{ $history->created_at->format('Y-m-d H:i') }}
+                  @if ($history->user)
+                  by {{ $history->user->name }}
+                  @endif
+                </p>
+                <p class="mt-2">{{ $history->change_summary }}</p>
+                <details class="mt-2">
+                  <summary class="cursor-pointer text-blue-600 hover:underline">Details</summary>
+                  <div class="grid grid-flow-col gap-3">
+                    <pre class="bg-gray-100 p-4 rounded border text-xs mt-2">{{ json_encode($history->old_data, JSON_PRETTY_PRINT) }}</pre>
+                    <pre class="bg-gray-100 p-4 rounded border text-xs mt-2">{{ json_encode($history->new_data, JSON_PRETTY_PRINT) }}</pre>
+                  </div>
+                </details>
+              </div>
+              @endforeach
+            </div>
+            @endif
+          </div>
           <div class="mt-6 flex">
             <a href="{{ route('tasks.edit', $task) }}"
               class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2">
