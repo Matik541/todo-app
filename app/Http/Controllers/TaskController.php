@@ -2,9 +2,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Task;
+use Carbon\Carbon;
+use App\Policies\TaskPolicy; 
+
+
 
 class TaskController extends Controller
 {
+    /**
+     * 
+     */
+    public function authorize($ability, $arguments = [])
+    {
+        if (Auth::check()) {
+            return Auth::user()->can($ability, $arguments);
+        }
+
+        return false;
+    }
+
+
     /**
      * Display a listing of the resource.
      */
@@ -111,5 +130,41 @@ class TaskController extends Controller
         $task->delete();
 
         return redirect()->route('tasks.index')->with('success', 'Task deleted successfully.');
+    }
+
+    /**
+     * Generate a shareable link for a task.
+     */
+    public function generateShareLink(Request $request, Task $task)
+    {
+        $this->authorize('update', $task);
+
+        $token = Str::random(32);
+        $expiresAt = Carbon::now()->addHours(24);
+
+        $task->update([
+            'access_token' => $token,
+            'token_expires_at' => $expiresAt,
+        ]);
+
+        $shareLink = route('tasks.share', ['token' => $token]);
+
+        return back()->with('share_link', $shareLink)->with('success', 'Share link generated successfully.');
+    }
+
+    /**
+     * Display a shared task.
+     */
+    public function showSharedTask(Request $request, string $token)
+    {
+        $task = Task::where('access_token', $token)
+                    ->where('token_expires_at', '>', Carbon::now())
+                    ->first();
+
+        if (!$task) {
+            abort(404, 'Task not found or link expired.');
+        }
+
+        return view('tasks.shared', compact('task'));
     }
 }

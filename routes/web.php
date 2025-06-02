@@ -18,7 +18,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('task', TaskController::class);
+    Route::resource('/tasks', TaskController::class);
+
+    Route::post('/tasks/{task}/share', [TaskController::class, 'generateShareLink'])->name('tasks.generate_share_link');
 });
+
+Route::get('/tasks/share/{token}', [TaskController::class, 'showSharedTask'])->name('tasks.share');
 
 require __DIR__.'/auth.php';

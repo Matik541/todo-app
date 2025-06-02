@@ -9,11 +9,6 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    @if (session('success'))
-                        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
-                            {{ session('success') }}
-                        </div>
-                    @endif
 
                     <div class="flex justify-between items-center mb-4">
                         <a href="{{ route('tasks.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -21,13 +16,12 @@
                         </a>
                     </div>
 
-                    {{-- Formularz filtrowania --}}
-                    <form action="{{ route('tasks.index') }}" method="GET" class="mb-4 bg-gray-50 p-4 rounded-lg shadow-sm">
+                    <form action="{{ route('tasks.index') }}" method="GET" class="mb-4 bg-gray-50 p-4 border border-gray-300 rounded-lg shadow-sm">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
-                                <label for="priority" class="block text-sm font-medium text-gray-700">Priorytet:</label>
+                                <label for="priority" class="block text-sm font-medium text-gray-700">Priority:</label>
                                 <select name="priority" id="priority" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                    <option value="">Wszystkie</option>
+                                    <option value="">any prioryty</option>
                                     <option value="low" {{ request('priority') == 'low' ? 'selected' : '' }}>low</option>
                                     <option value="medium" {{ request('priority') == 'medium' ? 'selected' : '' }}>medium</option>
                                     <option value="high" {{ request('priority') == 'high' ? 'selected' : '' }}>high</option>
@@ -36,28 +30,36 @@
                             <div>
                                 <label for="status" class="block text-sm font-medium text-gray-700">Status:</label>
                                 <select name="status" id="status" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                    <option value="">Wszystkie</option>
+                                    <option value="">any status</option>
                                     <option value="to-do" {{ request('status') == 'to-do' ? 'selected' : '' }}>to do</option>
                                     <option value="in progress" {{ request('status') == 'in progress' ? 'selected' : '' }}>in progress</option>
                                     <option value="done" {{ request('status') == 'done' ? 'selected' : '' }}>done</option>
                                 </select>
                             </div>
                             <div>
-                                <label for="due_date" class="block text-sm font-medium text-gray-700">Termin wykonania:</label>
+                                <label for="due_date" class="block text-sm font-medium text-gray-700">Due date:</label>
                                 <input type="date" name="due_date" id="due_date" value="{{ request('due_date') }}" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                             </div>
                         </div>
                         <div class="mt-4">
-                            <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Filtruj</button>
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Filter</button>
                             <a href="{{ route('tasks.index') }}" class="ml-2 text-gray-600 hover:text-gray-900">Reset filters</a>
                         </div>
                     </form>
 
 
+                    @if (session('success'))
+                        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     @if ($tasks->isEmpty())
-                        <p>
-                          You do not have any tasks yet. <a href="{{ route('tasks.create') }}" class="text-blue-600 hover:text-blue-900">Create a new task</a>.
-                        </p>
+                        <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative mb-4" role="alert">
+                            <strong class="font-bold">No tasks found.</strong>
+                            <span class="block sm:inline">
+                                <a href="{{ route('tasks.create') }}" class="text-blue-600 hover:text-blue-900">Create a new task</a>.
+                            </span>
+                        </div>
                     @else
                         <div class="overflow-x-auto">
                             <table class="min-w-full divide-y divide-gray-200">
