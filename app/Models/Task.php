@@ -23,6 +23,7 @@ class Task extends Model
         'user_id',
         'access_token',
         'token_expires_at',
+        // 'google_calendar_event_id',
     ];
 
     /**

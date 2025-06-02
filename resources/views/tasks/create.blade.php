@@ -13,7 +13,7 @@
                         @csrf
                         @include('tasks._form')
                         <div class="mt-4">
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            <button type="submit" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
                                 Add task
                             </button>
                             <a href="{{ route('tasks.index') }}" class="ml-2 text-gray-600 hover:text-gray-900">

@@ -23,7 +23,7 @@
           <div class="mt-8">
             <h3 class="text-lg font-bold mb-4">Edit History</h3>
             @if ($task->histories->isEmpty())
-            <div class="bg-yellow-100 border border-yellow-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative mb-4" role="alert">
               No edit history available for this task.
             </div>
 
@@ -39,7 +39,7 @@
                 </p>
                 <p class="mt-2">{{ $history->change_summary }}</p>
                 <details class="mt-2">
-                  <summary class="cursor-pointer text-blue-600 hover:underline">Details</summary>
+                  <summary class="cursor-pointer text-indigo-600 hover:underline">Details</summary>
                   <div class="grid grid-flow-col gap-3">
                     <pre class="bg-gray-100 p-4 rounded border text-xs mt-2">{{ json_encode($history->old_data, JSON_PRETTY_PRINT) }}</pre>
                     <pre class="bg-gray-100 p-4 rounded border text-xs mt-2">{{ json_encode($history->new_data, JSON_PRETTY_PRINT) }}</pre>

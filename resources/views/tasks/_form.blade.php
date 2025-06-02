@@ -47,3 +47,12 @@
         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
     @enderror
 </div>
+
+<!-- <div class="mb-4">
+    <label for="add_to_google_calendar" class="inline-flex items-center">
+        <input type="checkbox" name="add_to_google_calendar" id="add_to_google_calendar" value="1" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+            @if (isset($task) && $task->google_calendar_event_id) checked @endif
+        >
+        <span class="ml-2 text-sm text-gray-600">Dodaj/Zaktualizuj w Google Calendar</span>
+    </label>
+</div> -->

@@ -11,7 +11,7 @@
                 <div class="p-6 text-gray-900">
 
                     <div class="flex justify-between items-center mb-4">
-                        <a href="{{ route('tasks.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <a href="{{ route('tasks.create') }}" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
                             Add new task
                         </a>
                     </div>
@@ -42,7 +42,7 @@
                             </div>
                         </div>
                         <div class="mt-4">
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Filter</button>
+                            <button type="submit" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Filter</button>
                             <a href="{{ route('tasks.index') }}" class="ml-2 text-gray-600 hover:text-gray-900">Reset filters</a>
                         </div>
                     </form>
@@ -57,7 +57,7 @@
                         <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative mb-4" role="alert">
                             <strong class="font-bold">No tasks found.</strong>
                             <span class="block sm:inline">
-                                <a href="{{ route('tasks.create') }}" class="text-blue-600 hover:text-blue-900">Create a new task</a>.
+                                <a href="{{ route('tasks.create') }}" class="text-indigo-600 hover:text-indigo-900">Create a new task</a>.
                             </span>
                         </div>
                     @else
