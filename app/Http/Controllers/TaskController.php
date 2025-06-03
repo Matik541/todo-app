@@ -6,10 +6,12 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use Spatie\GoogleCalendar\Event;
+// use Spatie\GoogleCalendar\Event;
 
 class TaskController extends Controller
 {
+    public $share_link;
+
     /**
      *
      */
@@ -204,7 +206,12 @@ class TaskController extends Controller
         $this->authorize('update', $task);
 
         $token     = Str::random(32);
-        $expiresAt = Carbon::now()->addHours(24);
+        $expiresAt = Carbon::now()->addHours(24); 
+
+        if ($task->access_token && $task->token_expires_at > Carbon::now()) {
+            return back()->with('share_link', route('tasks.share', ['token' => $task->access_token]))
+                         ->with('warning', 'Share link already exists and is still valid.');
+        }
 
         $task->update([
             'access_token'     => $token,
