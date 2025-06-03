@@ -67,7 +67,7 @@
     </main>
 
     <footer class="absolute bottom-0 w-full p-4 text-center text-white text-sm opacity-80">
-      Made by <a href="github.com/Matik541" class="text-white hover:underline">Mateusz Kowalski</a>
+      Made by <a href="https://github.com/Matik541" class="text-white hover:underline">Mateusz Kowalski</a>
     </footer>
   </div>
 
