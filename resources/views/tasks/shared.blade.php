@@ -16,7 +16,8 @@
 
 <body class="font-sans text-gray-900 antialiased">
   <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-    <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+    <div
+      class="w-full max-w-sm md:max-w-lg lg:max-w-3xl mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
       <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
         {{ __('Shared task') }}
       </h2>
@@ -28,11 +29,12 @@
         <div class="col-span-1 border border-gray-300 rounded-lg p-4 bg-gray-50">
           <p class="mb-2"><strong>priority:</strong> {{ ucfirst($task->priority) }}</p>
           <p class="mb-2"><strong>status:</strong> {{ ucfirst($task->status) }}</p>
-          <p class="mb-4"><strong>due date:</strong> {{ $task->due_date->format('Y-m-d') }}</p>
+          <p class="mb-2"><strong>due date:</strong> {{ $task->due_date->format('Y-m-d') }}</p>
+          <p class="mb-2"><strong>author:</strong> {{ $task->user->name ?? 'Unknown' }}</p>
         </div>
       </div>
       <div class="mt-6 text-center text-gray-600 text-sm">
-        This link will expires at: {{ $task->token_expires_at->format('Y-m-d H:i') }}
+        This link will expires at: {{ $task->token_expires_at->format('Y-m-d H:i') }} (UTC +0)
       </div>
     </div>
   </div>
